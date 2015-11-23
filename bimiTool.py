@@ -40,7 +40,7 @@ class BiMiTool:
         self.event_pos = []                   ##< [x,y] pos from event object that activated the last context menu popup
         self.transactions = []                ##< Contains all informations and transactions from one account
         self.drinks_comboxes_spinbuttons = [] ##< Contains tuples (combobox,spinbutton)
-        self.transactions_list = Gtk.ListStore(int, str, str)
+        self.transactions_list = Gtk.ListStore(int, str, str, str)
         self.accounts_list = Gtk.ListStore(int, str)
         ## \var self.drinks_list for each float a str for visualisation
         # (did, dname, sPrice, str sPrice, pPrice, str pPrice, deposit, str deposit, fBottles, eBottles, kings, str for comboboxes)
@@ -110,7 +110,7 @@ class BiMiTool:
         # Create column headers for transactions_view
         self.transactions_view = self.gui.get_object('transactions_view')
         self.transactions_view.set_model(self.transactions_list)
-        col_names = ['Date', 'Value']
+        col_names = ['Date', 'Info', 'Value']
         for i in range(len(col_names)):
             renderer = Gtk.CellRendererText()
             renderer.set_alignment(1.0,0.5)
@@ -558,22 +558,26 @@ class BiMiTool:
             # show only one row per transaction
             cur_symbol = BimiConfig.option('currency')
             total = 0.0
-            tid_date_value = [self.transactions[0][0], str(self.transactions[0][4].date()), 0.0]
+
             for i,item in enumerate(self.transactions):
-                if tid_date_value[0] == item[0]:
-                    tid_date_value[2] += item[3]/100.0*item[2]
+                transaction_value = item[3] / 100.0 * item[2]
+                if item[1] is not None:
+                    transaction_info = str(item[2]) + ' x ' + item[1] + ' @ ' + str(item[3] / 100.0) + cur_symbol
                 else:
-                    tid_date_value[2] = str(tid_date_value[2]) + cur_symbol
-                    self.transactions_list.append(tid_date_value)
-                    tid_date_value[0] = item[0]
-                    tid_date_value[1] = str(item[4].date())
-                    tid_date_value[2] = item[3]/100.0*item[2]
-                total += item[3]/100.0*item[2]
-            tid_date_value[2] = str(tid_date_value[2]) + cur_symbol
-            self.transactions_list.append(tid_date_value)
+                    transaction_info = 'Add Credit/Debt'
+
+                transaction_list_entry = []
+                transaction_list_entry.append(item[0])
+                transaction_list_entry.append(str(item[4].date()))
+                transaction_list_entry.append(transaction_info)
+                transaction_list_entry.append(str(transaction_value) + cur_symbol)
+                self.transactions_list.append(transaction_list_entry)
+
+                total += transaction_value
+
             if 0.009 < BimiConfig.option('deposit'):
-                self.transactions_list.append( [-1, 'Deposit', str(-BimiConfig.option('deposit')) + cur_symbol] )
-            self.transactions_list.append( [-1, 'Balance', str(total - BimiConfig.option('deposit')) + cur_symbol] )
+                self.transactions_list.append( [-1, 'Deposit', '', str(-BimiConfig.option('deposit')) + cur_symbol] )
+            self.transactions_list.append( [-1, 'Balance', '', str(total - BimiConfig.option('deposit')) + cur_symbol] )
 
 
 if __name__ == "__main__":
