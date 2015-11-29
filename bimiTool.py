@@ -112,12 +112,22 @@ class BiMiTool:
         # Create column headers for transactions_view
         self.transactions_view = self.gui.get_object('transactions_view')
         self.transactions_view.set_model(self.transactions_list)
-        col_names = ['Date', 'Info', 'Value']
-        for i in range(len(col_names)):
-            renderer = Gtk.CellRendererText()
-            renderer.set_alignment(1.0,0.5)
-            trans_view_col = Gtk.TreeViewColumn(col_names[i], renderer, text=i+1)
-            self.transactions_view.append_column(trans_view_col)
+
+        renderer = Gtk.CellRendererText()
+        renderer.set_alignment(0.0, 0.5)
+        self.transactions_view.append_column(Gtk.TreeViewColumn("Date", renderer, text=1))
+
+        renderer = Gtk.CellRendererText()
+        renderer.set_alignment(0.0, 0.5)
+        renderer.set_padding(10, 0)
+        tree_view_col = Gtk.TreeViewColumn("Info", renderer, text=2)
+        tree_view_col.set_expand(True)
+        self.transactions_view.append_column(tree_view_col)
+
+        renderer = Gtk.CellRendererText()
+        renderer.set_alignment(1.0, 0.5)
+        renderer.set_fixed_size(10, 10)
+        self.transactions_view.append_column(Gtk.TreeViewColumn("Value", renderer, text=3))
 
         # Set up and add text from database to comboboxes and spinbuttons
         grid = self.gui.get_object('drinks_grid')
