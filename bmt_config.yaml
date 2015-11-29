@@ -6,7 +6,7 @@
 
 # Set the deposit value. This value will be deducted from the
 # balance of each user.
-#deposit: 0.0
+deposit: 20.0
 
 # Set the number of drink-comboboxes displayed in the GUI.
 #num_comboboxes: 4
