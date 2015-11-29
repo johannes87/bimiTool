@@ -790,6 +790,8 @@
     <property name="vexpand">True</property>
     <property name="title" translatable="yes">Mail</property>
     <property name="window_position">mouse</property>
+    <property name="default_width">800</property>
+    <property name="default_height">400</property>
     <property name="destroy_with_parent">True</property>
     <property name="transient_for">main_window</property>
     <signal name="destroy" handler="mail_window_destroyed" swapped="no"/>
