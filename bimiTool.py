@@ -20,8 +20,10 @@ import sys, datetime, logging, argparse, subprocess
 from urllib import quote
 from bimibase import BimiBase
 from bimiconfig import BimiConfig
+import gi
 
 try:
+    gi.require_version('Gtk', '3.0')
     from gi.repository import Gtk, Pango
 except ImportError:
     print("--------------------------------------------------------------------------")
