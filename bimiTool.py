@@ -257,8 +257,19 @@ class BiMiTool:
 
     def deleteAccount(self, widget):
         row_num = self.accounts_view.get_path_at_pos(self.event_pos[0], self.event_pos[1])[0]
-        self.db.delAccount( self.accounts_list[(row_num,0)][0] )
-        self.updateAccountsView()
+        account_id = self.accounts_list[(row_num,0)][0]
+        account_name = self.db.accounts()[account_id - 1][1]
+
+        message_dialog = Gtk.MessageDialog(self.main_window, 0, Gtk.MessageType.QUESTION,
+                                           Gtk.ButtonsType.OK_CANCEL, "Delete account?")
+        message_dialog.format_secondary_text("Are you sure you want to delete account '" + account_name + "'?")
+        response = message_dialog.run()
+
+        if response == Gtk.ResponseType.OK:
+            self.db.delAccount(account_id)
+            self.updateAccountsView()
+
+        message_dialog.destroy()
 
 
     def deleteDrink(self, widget):
