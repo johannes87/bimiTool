@@ -6,6 +6,11 @@ dormitory or flat-sharing community. It is assumed that inhabiters
 use tally marks to record how many drinks they had.  For the time
 beeing there is no web-interface or client available.
 
+==== Anmerkungen Johannes ====
+
+Quellcode: https://github.com/johannes87/bimiTool
+Basiert auf: https://github.com/KapuKapu/bimiTool (danke @ nefarius)
+
 
 Features
 --------
