@@ -77,6 +77,7 @@ class BiMiTool:
 
                    'add_drink': self.popAddDrinkWindow,
                    'edit_drink': self.popEditDrinkWindow,
+                   'copy_drinks_to_clipboard_clicked': self.copyDrinksToClipboard,
 
                    'generate_mail': self.showSummaryMail,
                    #"preferences_activate": self.prefsPopup,
@@ -495,6 +496,9 @@ class BiMiTool:
             self.gui.get_object('edit_drink_spinbutton'+str(i)).set_value( self.edit_drink_infos[cols[i]] )
         self.drink_window.show()
 
+
+    def copyDrinksToClipboard(self, widget):
+        print "copy drinks button clicked"
 
     ## Open mail program in compose mode with credit_mail data
     #
