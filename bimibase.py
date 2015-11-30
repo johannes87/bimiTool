@@ -18,7 +18,8 @@
 import os, sys, datetime, logging
 
 try:
-    from pysqlite2 import dbapi2 as sqlite3
+    import sqlite3
+    # from pysqlite2 import dbapi2 as sqlite3
 except ImportError:
     print("------------------------------------------------------------------------------")
     print("| Check your python sqlite3 setup! (Debian/Ubuntu: install python-pysqlite2) |")
