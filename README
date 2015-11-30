@@ -11,6 +11,18 @@ beeing there is no web-interface or client available.
 Quellcode: https://github.com/johannes87/bimiTool
 Basiert auf: https://github.com/KapuKapu/bimiTool (danke @ nefarius)
 
+Windows-Installation:
+---------------------
+
+* Python2 installieren: https://www.python.org/downloads/windows/ ("Latest Python 2 Release"). Bei der Installation auswählen, dass python.exe im PATH installiert werden soll.
+
+* In Windows ausloggen und wieder einloggen, damit python.exe im PATH gefunden wird.
+
+* PyGObject installieren: https://wiki.gnome.org/action/show/Projects/PyGObject ("Windows isntallers with Gtk3 support", z.B. "pygi-aio-3.18.2_rev3-setup.exe"). Bei der Installation "GTK+" auswählen.
+
+* PyYAML installieren: Auf Kommandozeile eingeben: python.exe -m pip install pyyaml
+
+* bimiTool.cmd starten ;)
 
 Features
 --------
