@@ -24,7 +24,7 @@ import gi
 
 try:
     gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, Pango
+    from gi.repository import Gtk, Pango, Gdk
 except ImportError:
     print("--------------------------------------------------------------------------")
     print("| Check your python GTK+3 setup! (Debian/Ubuntu: install gir1.2-gtk-3.0) |")
@@ -153,6 +153,8 @@ class BiMiTool:
         grid.child_set_property(self.gui.get_object('consume_button'), 'top-attach', num+1)
         grid.child_set_property(self.gui.get_object('scrolledwindow1'), 'top-attach', num+2)
         self.updateDrinksList()
+
+        self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
 
         self.main_window.show_all()
 
@@ -498,7 +500,10 @@ class BiMiTool:
 
 
     def copyDrinksToClipboard(self, widget):
-        print "copy drinks button clicked"
+        clipboard_text = ""
+        for drink in self.db.drinks():
+            clipboard_text += drink[1] + ";" + str(drink[2] / float(100)).replace('.', ',') + "\n"
+        self.clipboard.set_text(clipboard_text, -1)
 
     ## Open mail program in compose mode with credit_mail data
     #
